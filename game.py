@@ -25,7 +25,6 @@ from pygame.locals import *		# mystery sauce
 
 pygame.init()		# mandatory
 
-# get a screen with a fancy title and a font and a "clock"
 SCREEN_HEIGHT = 340
 SCREEN_WIDTH = 1000
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
