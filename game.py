@@ -26,8 +26,10 @@ from pygame.locals import *		# mystery sauce
 pygame.init()		# mandatory
 
 # get a screen with a fancy title and a font and a "clock"
-screen = pygame.display.set_mode((1000, 340))
-pygame.display.set_caption('Slope Demo')
+SCREEN_HEIGHT = 340
+SCREEN_WIDTH = 1000
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('mut-race')
 fpsClock = pygame.time.Clock()
 
 background = pygame.image.load('grass_flat_02.png').convert()
@@ -43,8 +45,8 @@ left_key_down = False
 right_key_down = False
 
 # Variables: player in-game coordinates
-player_x = 10.0
-player_y = 10.0
+player_x = 5
+player_y = 0.6 * SCREEN_HEIGHT
 
 # Variable: player Y velocity
 player_yvel = 0.0
@@ -85,28 +87,28 @@ while True:
         player_y += moving_x * ((slope_y2 - slope_y1) / (slope_x2 - slope_x1))
 
     # player Y acceleration
-    if player_yvel < max_yvel:
-        player_yvel += yaccel
-    player_y += player_yvel
+    # if player_yvel < max_yvel:
+        # player_yvel += yaccel
+    # player_y += player_yvel
 
     # player X movement
     player_x += moving_x
 
-    # player slope hit check
-    on_slope = False
-    # within the horizontal confines of slope ?
-    if slope_x1 <= player_x + player_w <= slope_x2 - player_w:
-        # find out the Y-coordinate of the slope's intersection
-        # to the player's current X-coordinate, and check
-        # if the player's bottom Y position trespasses that.
-        # if so, set the `on_slope' flag and zero the player's
-        # Y velocity
-        proj_y = slope_y1 + (player_x - slope_x1) * \
-            ((slope_y2 - slope_y1) / (slope_x2 - slope_x1))
-        if player_y + player_h >= proj_y:
-            player_y = proj_y - player_h
-            player_yvel = 0
-            on_slope = True
+    # # player slope hit check
+    # on_slope = False
+    # # within the horizontal confines of slope ?
+    # if slope_x1 <= player_x + player_w <= slope_x2 - player_w:
+    #     # find out the Y-coordinate of the slope's intersection
+    #     # to the player's current X-coordinate, and check
+    #     # if the player's bottom Y position trespasses that.
+    #     # if so, set the `on_slope' flag and zero the player's
+    #     # Y velocity
+    #     proj_y = slope_y1 + (player_x - slope_x1) * \
+    #         ((slope_y2 - slope_y1) / (slope_x2 - slope_x1))
+    #     if player_y + player_h >= proj_y:
+    #         player_y = proj_y - player_h
+    #         player_yvel = 0
+    #         on_slope = True
 
     # draw white background
     # pygame.draw.rect(screen, white, (0, 0, 640, 480))
@@ -114,9 +116,9 @@ while True:
     # draw player
     pygame.draw.rect(screen, black, (player_x, player_y, player_w, player_h))
 
-    # draw slope
-    pygame.draw.line(screen, red, (slope_x1, slope_y1),
-                     (slope_x2, slope_y2), 2)
+    # # draw slope
+    # pygame.draw.line(screen, red, (slope_x1, slope_y1),
+    #                  (slope_x2, slope_y2), 2)
 
     # flip the videobuffers
     pygame.display.update()
