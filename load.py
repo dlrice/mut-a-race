@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 import pygame
+from pygame.locals import *
 from PIL import Image
 from utils import get_resource_path
 
-background_image_path = get_resource_path('grass')
-background_image_object = Image.open(background_image_path)
-
+def get_background_image(name, width, height):
+    path = get_resource_path(name)
+    width, height = Image.open(path).size
+    ratio = resize_height / height
+    scaled_width = int(width * ratio)
+    image = Image.open(in_path)
+    image = image.resize((scaled_width, resize_height), Image.ANTIALIAS)
+    image = image.crop((x_offset, 0, x_offset + crop_width, resize_height))
+    return pygame.image.fromstring(image.tobytes(), image.size, image.mode)
+    
 # Create the screen object
-screen = pygame.display.set_mode(
-    background_image_object.size
-)
+screen = pygame.display.set_mode()
 
-background_image = pygame.image.load(background_image_object).convert()
-
+running = True
 
 # Main loop
 while running:
