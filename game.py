@@ -14,21 +14,28 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
 )
-
+from pathlib import Path
 from utils import get_background_image
+from player import Player
 
 pygame.init()
 
-screen_size = {'height':  340, 'width': 600}
+Path('./tmp').mkdir(exist_ok=True)
+track_size = {'height': 200, 'width': 600}
 
+screen_size = {'height': track_size['height']*3, 'width': track_size['width']}
 
 background_image = get_background_image(
-    'grass_background', screen_size['width'], screen_size['height'])
+    'mountain_background', track_size['width'], track_size['height'])
 
 screen = pygame.display.set_mode(
     (screen_size['width'], screen_size['height'])
 )
 pygame.display.set_caption('mut-race')
+
+goat = Player('./goat.json', track_size)
+
+all_sprites = pygame.sprite.Group([goat])
 
 # Variable to keep the main loop running
 running = True
@@ -47,5 +54,14 @@ while running:
         elif event.type == QUIT:
             running = False
 
+    # Get the set of keys pressed and check for user input
+    pressed_keys = pygame.key.get_pressed()
+    goat.update(pressed_keys)
+
     screen.blit(background_image, (0, 0))
+
+    # Draw all sprites
+    for entity in all_sprites:
+        screen.blit(entity.surf, entity.rect)
+
     pygame.display.flip()
