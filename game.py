@@ -21,17 +21,17 @@ from player import Player
 pygame.init()
 
 Path('./tmp').mkdir(exist_ok=True)
-track_size = {'height': 200, 'width': 600}
+track_size = {'height': 100, 'width': 600}
 
 screen_size = {'height': track_size['height']*3, 'width': track_size['width']}
-
+screen = pygame.display.set_mode(
+    (screen_size['width'], screen_size['height']),
+    pygame.HWSURFACE  # pygame.FULLSCREEN,
+)
 background_image = get_background_image(
     'mountain_background', track_size['width'], track_size['height'])
 
-screen = pygame.display.set_mode(
-    (screen_size['width'], screen_size['height'])
-)
-pygame.display.set_caption('mut-race')
+pygame.display.set_caption('mut-a-race')
 
 goat = Player('./goat.json', track_size)
 
@@ -39,6 +39,10 @@ all_sprites = pygame.sprite.Group([goat])
 
 # Variable to keep the main loop running
 running = True
+
+# Setup the clock for a decent framerate
+clock = pygame.time.Clock()
+FPS = 30
 
 # Main loop
 while running:
@@ -54,14 +58,17 @@ while running:
         elif event.type == QUIT:
             running = False
 
+    screen.blit(background_image, (0, 0))
+
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
     goat.update(pressed_keys)
 
-    screen.blit(background_image, (0, 0))
-
     # Draw all sprites
     for entity in all_sprites:
-        screen.blit(entity.surf, entity.rect)
+        screen.blit(entity.image, entity.rect)
 
     pygame.display.flip()
+
+    # Ensure program maintains a rate of 30 frames per second
+    clock.tick(FPS)

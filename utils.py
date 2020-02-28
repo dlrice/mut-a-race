@@ -30,7 +30,7 @@ def get_background_image(name, crop_width, resize_height, x_offset=0):
     image = image.resize((scaled_width, resize_height), Image.ANTIALIAS)
     image = image.crop((x_offset, 0, x_offset + crop_width, resize_height))
     print(image.size, image.mode)
-    return pygame.image.frombuffer(image.tobytes(), image.size, image.mode)
+    return pygame.image.frombuffer(image.tobytes(), image.size, image.mode).convert_alpha()
 
 
 def resize_height_crop_width(in_path, out_path, resize_height, crop_width, x_offset):
