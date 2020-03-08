@@ -33,7 +33,7 @@ levels = ['mountain_background']
 
 pygame.display.set_caption('mut-a-race')
 
-goat = Player('./goat.json', track_size, levels)
+goat = Player('./goat.json', track_size, levels, 0)
 
 all_sprites = pygame.sprite.Group([goat])
 

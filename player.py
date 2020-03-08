@@ -8,8 +8,13 @@ from pygame.locals import (
     QUIT,
 )
 from utils import get_background_image, load_json, get_animal_image
+from status_bar import StatusBar
 
 jitters = [el - 10 for el in range(10)]
+
+status_bar_width = 10
+status_bar_margin = 10
+status_bar_y_ratio = 0.1
 
 
 def rot_center(image, angle):
@@ -23,7 +28,7 @@ def rot_center(image, angle):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, setup_file, track_size, levels):
+    def __init__(self, setup_file, track_size, levels, track_index):
         super(Player, self).__init__()
         setup = load_json(setup_file)
         self.images = setup['images']
@@ -48,6 +53,7 @@ class Player(pygame.sprite.Sprite):
         self.level = 0
         self.complete = False
         self.load_background()
+        self.status_bar = StatusBar(track_size, track_index)
 
     def load_background(self):
         self.background_image = get_background_image(
@@ -67,21 +73,34 @@ class Player(pygame.sprite.Sprite):
         if self.level == len(self.levels):
             self.complete = True
 
+    def draw_status_bar(self, screen):
+        left = self.track_size['width'] - status_bar_margin - status_bar_width
+        top = self.track_size['height']*status_bar_y_ratio
+        height = self.track_size['height']*(1 - 2*status_bar_y_ratio)
+        width = status_bar_width
+
     # Move the sprite based on user keypresses
     def update(self, pressed_keys, screen):
 
+        # If done don't do anything
         if (self.complete):
             return
 
+        # Draw background
         screen.blit(self.background_image, (0, 0))
 
+        # Compute speed
         if pressed_keys[K_q]:
             self.speed = max(self.speed - 1, self.min_speed)
             # self.speak()
         elif pressed_keys[K_w]:
             self.speed = min(self.speed + 1, self.max_speed)
             # self.speak()
+
+        # Draw player
         self.rect.move_ip(self.speed, 0)
+
+        self.status_bar.update(self.speed/self.max_speed, screen)
 
         # Detect completion of level
         if self.rect.right > self.track_size['width']:
