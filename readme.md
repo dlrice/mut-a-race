@@ -1,6 +1,6 @@
 - [x] Move goat smoothly across
-- [ ] Detect completion of level
-- [ ] Speed responds to keyboard
+- [x] Detect completion of level
+- [x] Speed responds to keyboard
 - [ ] Show bar for % of max speed
 - [ ] Phenotypes respond to state change
   - [ ] Legs

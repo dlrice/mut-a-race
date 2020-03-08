@@ -1,10 +1,8 @@
 import pygame
 from pygame.locals import (
+    K_q,
+    K_w,
     RLEACCEL,
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
@@ -41,7 +39,9 @@ class Player(pygame.sprite.Sprite):
         # self.surf = pygame.transform.smoothscale(surf, scaled_size)
         # self.surf.set_colorkey(None, RLEACCEL)
         self.rect = self.image.get_rect(center=body['center'])
-        self.speed = 10
+        self.speed = 1
+        self.min_speed = 1
+        self.max_speed = 10
         # self.speak_sound = pygame.mixer.Sound('barking.ogg')
         # self.angle = 0
         self.level = 0
@@ -66,15 +66,14 @@ class Player(pygame.sprite.Sprite):
     def update(self, pressed_keys):
         if (self.complete):
             return
-        # print(self.rect)
-        # self.jiggle()
+
+        if pressed_keys[K_q]:
+            self.speed = max(self.speed - 1, self.min_speed)
+            # self.speak()
+        elif pressed_keys[K_w]:
+            self.speed = min(self.speed + 1, self.max_speed)
+            # self.speak()
         self.rect.move_ip(self.speed, 0)
-        # if pressed_keys[K_LEFT]:
-        #     self.rect.move_ip(-self.speed, 0)
-        #     # self.speak()
-        # if pressed_keys[K_RIGHT]:
-        #     self.rect.move_ip(self.speed, 0)
-        #     # self.speak()
 
         # Detect completion of level
         if self.rect.right > self.track_size['width']:
