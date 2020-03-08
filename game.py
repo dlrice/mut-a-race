@@ -21,7 +21,7 @@ from player import Player
 pygame.init()
 
 Path('./tmp').mkdir(exist_ok=True)
-track_size = {'height': 100, 'width': 600}
+track_size = {'height': 200, 'width': 800}
 
 screen_size = {'height': track_size['height']*3, 'width': track_size['width']}
 screen = pygame.display.set_mode(

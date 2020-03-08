@@ -1,5 +1,9 @@
 {
-    "images": {
-        "body": "./resources/final_images/Goat_pheno/goat_body_small.png"
+  "images": {
+    "body": {
+      "path": "./resources/final_images/Goat_pheno/goat_body_2.png",
+      "width": 90,
+      "center": [0, 140]
     }
+  }
 }

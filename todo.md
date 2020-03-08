@@ -1,0 +1,10 @@
+- [x] Move goat smoothly across
+- [ ] Detect completion of level
+- [ ] Speed responds to keyboard
+- [ ] Show bar for % of max speed
+- [ ] Phenotypes respond to state change
+  - [ ] Legs
+  - [ ] Toes
+  - [ ] Musculature
+- [ ] Load all environment
+- [ ] Respond to environment configurations
