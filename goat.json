@@ -5,5 +5,22 @@
       "width": 90,
       "center": [0, 140]
     }
+  },
+  "fitness": {
+    "grass": {
+      "legs": "large",
+      "foot": "spread",
+      "muscle": "most"
+    },
+    "mountain": {
+      "legs": "large",
+      "foot": "spread",
+      "muscle": "most"
+    },
+    "snow": {
+      "legs": "small",
+      "foot": "closed",
+      "muscle": "least"
+    }
   }
 }

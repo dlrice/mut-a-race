@@ -12,10 +12,6 @@ from status_bar import StatusBar
 
 jitters = [el - 10 for el in range(10)]
 
-status_bar_width = 10
-status_bar_margin = 10
-status_bar_y_ratio = 0.1
-
 
 def rot_center(image, angle):
     """rotate an image while keeping its center and size"""
@@ -72,12 +68,6 @@ class Player(pygame.sprite.Sprite):
         self.level += 1
         if self.level == len(self.levels):
             self.complete = True
-
-    def draw_status_bar(self, screen):
-        left = self.track_size['width'] - status_bar_margin - status_bar_width
-        top = self.track_size['height']*status_bar_y_ratio
-        height = self.track_size['height']*(1 - 2*status_bar_y_ratio)
-        width = status_bar_width
 
     # Move the sprite based on user keypresses
     def update(self, pressed_keys, screen):

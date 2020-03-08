@@ -14,14 +14,13 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
 )
-from pathlib import Path
 from utils import get_background_image
 from player import Player
 
 pygame.init()
 
-Path('./tmp').mkdir(exist_ok=True)
-track_size = {'height': 200, 'width': 800}
+track_size = {'height': 200, 'width': 1000}
+
 
 screen_size = {'height': track_size['height']*3, 'width': track_size['width']}
 screen = pygame.display.set_mode(

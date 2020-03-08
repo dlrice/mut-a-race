@@ -54,15 +54,10 @@ def trim_image(image):
 
 
 def get_animal_image(path, width, **kwargs):
-    image = Image.open(path)
+    image = trim_image(Image.open(path))
     image = trim_image(image)
     image_width, image_height = image.size
     ratio = image_height / image_width
     scaled_height = int(ratio * width)
     image = image.resize((width, scaled_height), Image.ANTIALIAS)
     return pygame.image.frombuffer(image.tobytes(), image.size, image.mode).convert_alpha()
-
-
-if __name__ == '__main__':
-    trim_image('./resources/final_images/Goat_pheno/goat_body_2.png',
-               './resources/final_images/Goat_pheno/goat_body_2_cropped.png')
