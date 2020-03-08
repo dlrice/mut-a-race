@@ -8,19 +8,19 @@
   },
   "fitness": {
     "grass": {
-      "legs": "large",
-      "foot": "spread",
-      "muscle": "most"
+      "legs": "L",
+      "foot": "L",
+      "muscle": "L"
     },
     "mountain": {
-      "legs": "large",
-      "foot": "spread",
-      "muscle": "most"
+      "legs": "L",
+      "foot": "L",
+      "muscle": "L"
     },
     "snow": {
-      "legs": "small",
-      "foot": "closed",
-      "muscle": "least"
+      "legs": "S",
+      "foot": "S",
+      "muscle": "S"
     }
   }
 }
