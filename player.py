@@ -25,7 +25,7 @@ def rot_center(image, angle):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, setup_file, track_size):
+    def __init__(self, setup_file, track_size, n_levels):
         super(Player, self).__init__()
         setup = load_json(setup_file)
         self.images = setup['images']
@@ -44,6 +44,9 @@ class Player(pygame.sprite.Sprite):
         self.speed = 10
         # self.speak_sound = pygame.mixer.Sound('barking.ogg')
         # self.angle = 0
+        self.level = 0
+        self.n_levels = n_levels
+        self.complete = False
 
     # def speak(self):
     #     self.speak_sound.play(maxtime=250)
@@ -54,8 +57,15 @@ class Player(pygame.sprite.Sprite):
     #     self.angle += 10
     #     # self.rect = self.image.get_rect(center=center)
 
+    def finished_level(self):
+        self.level += 1
+        if self.level == self.n_levels:
+            self.complete = True
+
     # Move the sprite based on user keypresses
     def update(self, pressed_keys):
+        if (self.complete):
+            return
         # print(self.rect)
         # self.jiggle()
         self.rect.move_ip(self.speed, 0)
@@ -66,8 +76,7 @@ class Player(pygame.sprite.Sprite):
         #     self.rect.move_ip(self.speed, 0)
         #     # self.speak()
 
-        # Keep player on the screen
-        if self.rect.left < 0:
-            self.rect.left = 0
+        # Detect completion of level
         if self.rect.right > self.track_size['width']:
-            self.rect.right = self.track_size['width']
+            self.finished_level()
+            print(self.level)

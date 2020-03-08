@@ -31,9 +31,11 @@ screen = pygame.display.set_mode(
 background_image = get_background_image(
     'mountain_background', track_size['width'], track_size['height'])
 
+n_levels = 1
+
 pygame.display.set_caption('mut-a-race')
 
-goat = Player('./goat.json', track_size)
+goat = Player('./goat.json', track_size, n_levels)
 
 all_sprites = pygame.sprite.Group([goat])
 
