@@ -28,14 +28,12 @@ screen = pygame.display.set_mode(
     (screen_size['width'], screen_size['height']),
     pygame.HWSURFACE  # pygame.FULLSCREEN,
 )
-background_image = get_background_image(
-    'mountain_background', track_size['width'], track_size['height'])
 
-n_levels = 1
+levels = ['mountain_background']
 
 pygame.display.set_caption('mut-a-race')
 
-goat = Player('./goat.json', track_size, n_levels)
+goat = Player('./goat.json', track_size, levels)
 
 all_sprites = pygame.sprite.Group([goat])
 
@@ -60,11 +58,9 @@ while running:
         elif event.type == QUIT:
             running = False
 
-    screen.blit(background_image, (0, 0))
-
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
-    goat.update(pressed_keys)
+    goat.update(pressed_keys, screen)
 
     # Draw all sprites
     for entity in all_sprites:

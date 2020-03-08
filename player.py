@@ -7,7 +7,7 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
 )
-from utils import load_json, get_animal_image
+from utils import get_background_image, load_json, get_animal_image
 
 jitters = [el - 10 for el in range(10)]
 
@@ -23,11 +23,12 @@ def rot_center(image, angle):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, setup_file, track_size, n_levels):
+    def __init__(self, setup_file, track_size, levels):
         super(Player, self).__init__()
         setup = load_json(setup_file)
         self.images = setup['images']
         self.track_size = track_size
+        self.levels = levels
         body = self.images['body']
         surface = get_animal_image(**body)
         self.image = surface
@@ -45,8 +46,12 @@ class Player(pygame.sprite.Sprite):
         # self.speak_sound = pygame.mixer.Sound('barking.ogg')
         # self.angle = 0
         self.level = 0
-        self.n_levels = n_levels
         self.complete = False
+        self.load_background()
+
+    def load_background(self):
+        self.background_image = get_background_image(
+            self.levels[self.level], self.track_size['width'], self.track_size['height'])
 
     # def speak(self):
     #     self.speak_sound.play(maxtime=250)
@@ -59,13 +64,16 @@ class Player(pygame.sprite.Sprite):
 
     def finished_level(self):
         self.level += 1
-        if self.level == self.n_levels:
+        if self.level == len(self.levels):
             self.complete = True
 
     # Move the sprite based on user keypresses
-    def update(self, pressed_keys):
+    def update(self, pressed_keys, screen):
+
         if (self.complete):
             return
+
+        screen.blit(self.background_image, (0, 0))
 
         if pressed_keys[K_q]:
             self.speed = max(self.speed - 1, self.min_speed)
