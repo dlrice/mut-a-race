@@ -1,22 +1,22 @@
 {
   "images": {
     "body": {
-      "path": "./resources/final_images/Horse_pheno/horse_body.png",
+      "path": "./resources/final_images/Goat_pheno/goat_body_2.png",
       "width": 80,
       "center": [12, 140]
     },
     "legs_front": {
-      "path": "./resources/final_images/Horse_pheno/horse_legs_front.png",
+      "path": "./resources/final_images/Goat_pheno/goat_legs_front.png",
       "width": 50,
       "center": [-5, 170]
     },
     "legs_back": {
-      "path": "./resources/final_images/Horse_pheno/horse_legs_back.png",
+      "path": "./resources/final_images/Goat_pheno/goat_legs_back.png",
       "width": 50,
       "center": [-5, 170]
     }
   },
-  "fitness": {
+  "optimal_phenotypes": {
     "grass": {
       "legs": "L",
       "foot": "L",
@@ -34,3 +34,7 @@
     }
   }
 }
+
+legs, foot, muscle
+LLL, LLS
+S, M, L

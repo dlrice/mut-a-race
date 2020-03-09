@@ -16,7 +16,7 @@
       "center": [-5, 170]
     }
   },
-  "fitness": {
+  "optimal_phenotypes": {
     "grass": {
       "legs": "L",
       "foot": "L",
