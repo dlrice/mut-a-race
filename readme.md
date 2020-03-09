@@ -6,5 +6,6 @@
   - [ ] Legs
   - [ ] Toes
   - [ ] Musculature
-- [ ] Load all environment
+- [ ] Load all environments
 - [ ] Respond to environment configurations
+- [ ] Tweak animal movement

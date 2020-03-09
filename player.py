@@ -9,6 +9,7 @@ from pygame.locals import (
 )
 from utils import get_background_image, load_json, get_animal_image
 from status_bar import StatusBar
+from body_part import BodyPart
 
 jitters = [el - 10 for el in range(10)]
 
@@ -23,7 +24,7 @@ def rot_center(image, angle):
     return rot_image
 
 
-class Player(pygame.sprite.Sprite):
+class Player():
     def __init__(self, setup_file, track_size, levels, track_index):
         super(Player, self).__init__()
         setup = load_json(setup_file)
@@ -33,7 +34,6 @@ class Player(pygame.sprite.Sprite):
         body = self.images['body']
         surface = get_animal_image(**body)
         self.image = surface
-        print(surface.get_size())
         # self.original_image = surface
         # factor = 0.1
         # width, height = surf.get_size()
@@ -49,7 +49,13 @@ class Player(pygame.sprite.Sprite):
         self.level = 0
         self.complete = False
         self.load_background()
-        self.status_bar = StatusBar(track_size, track_index)
+        self.y = track_index*track_size['height']
+        self.status_bar = StatusBar(track_size, self.y)
+        self.legs_front = BodyPart(self.images['legs_front'], self.y)
+        self.legs_back = BodyPart(self.images['legs_back'], self.y)
+        self.body = BodyPart(self.images['body'], self.y)
+        self.sprites = pygame.sprite.Group(
+            [self.body, self.legs_front, self.legs_back])
 
     def load_background(self):
         self.background_image = get_background_image(
@@ -77,7 +83,8 @@ class Player(pygame.sprite.Sprite):
             return
 
         # Draw background
-        screen.blit(self.background_image, (0, 0))
+        screen.blit(self.background_image,
+                    (0, self.y))
 
         # Compute speed
         if pressed_keys[K_q]:
@@ -88,8 +95,16 @@ class Player(pygame.sprite.Sprite):
             # self.speak()
 
         # Draw player
-        self.rect.move_ip(self.speed, 0)
+        # self.rect.move_ip(self.speed, 0)
+        self.body.update(self.speed)
+        self.legs_front.update(self.speed)
+        self.legs_back.update(self.speed)
 
+        # Draw all sprites
+        for entity in self.sprites:
+            screen.blit(entity.image, entity.rect)
+
+        # Status bar
         self.status_bar.update(self.speed/self.max_speed, screen)
 
         # Detect completion of level

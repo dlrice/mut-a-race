@@ -33,8 +33,10 @@ levels = ['mountain_background']
 pygame.display.set_caption('mut-a-race')
 
 goat = Player('./goat.json', track_size, levels, 0)
+horse = Player('./horse.json', track_size, levels, 1)
+rabbit = Player('./rabbit.json', track_size, levels, 2)
 
-all_sprites = pygame.sprite.Group([goat])
+# all_sprites = pygame.sprite.Group([goat])
 
 # Variable to keep the main loop running
 running = True
@@ -60,10 +62,12 @@ while running:
     # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
     goat.update(pressed_keys, screen)
+    horse.update(pressed_keys, screen)
+    rabbit.update(pressed_keys, screen)
 
-    # Draw all sprites
-    for entity in all_sprites:
-        screen.blit(entity.image, entity.rect)
+    # # Draw all sprites
+    # for entity in all_sprites:
+    #     screen.blit(entity.image, entity.rect)
 
     pygame.display.flip()
 

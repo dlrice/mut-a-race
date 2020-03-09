@@ -8,11 +8,10 @@ FG_COLOR = (100, 151, 177)
 
 
 class StatusBar:
-    def __init__(self, track_size, track_index):
+    def __init__(self, track_size, y):
         self.track_size = track_size
-        self.track_index = track_index
         self.left = track_size['width'] - MARGIN - WIDTH
-        self.top = track_size['height'] * HEIGHT_RATIO
+        self.top = track_size['height'] * HEIGHT_RATIO + y
         self.height = track_size['height']*(1 - 2*HEIGHT_RATIO)
 
     def update(self, ratio, screen):
