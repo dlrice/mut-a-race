@@ -19,17 +19,17 @@
   "optimal_phenotypes": {
     "grass": {
       "legs": "L",
-      "foot": "L",
+      "foot": "S",
       "muscle": "L"
     },
     "mountain": {
-      "legs": "L",
+      "legs": "S",
       "foot": "L",
-      "muscle": "L"
+      "muscle": "S"
     },
     "snow": {
-      "legs": "S",
-      "foot": "S",
+      "legs": "L",
+      "foot": "L",
       "muscle": "S"
     }
   }
