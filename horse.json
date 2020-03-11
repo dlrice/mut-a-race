@@ -28,8 +28,8 @@
       "muscle": "S"
     },
     "snow": {
-      "legs": "S",
-      "foot": "S",
+      "legs": "L",
+      "foot": "L",
       "muscle": "S"
     }
   }
